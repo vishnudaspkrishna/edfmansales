@@ -10,36 +10,31 @@
       margin: 0;
       padding: 0;
     }
-   header {
-  position: relative;
-  background-size: cover;
+    header {
+      position: relative;
+      background-size: cover;
       background-image: url('logo.png');
-  background-position: center;
-  color: white;
-  height: 250px;
-}
-
-/* Top-left info */
-.header-info {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-/* Center content */
-.header-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 20px;
-  border-radius: 8px;
-}
-
+      background-position: center;
+      color: white;
+      height: 250px;
+    }
+    .header-info {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .header-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+    }
     .container {
       padding: 20px;
       max-width: 900px;
@@ -88,62 +83,50 @@
   </div>
 </header>
 
-
 <div class="container">
   <h2>Our Sugar Products</h2>
   <p>We offer a wide range of sugar grades directly sourced from reputed mills.</p>
-  <table>
-    <tr>
-      <th>Sugar Type</th>
-      <th>Grade</th>
-      <th>Price (₹/Ton)</th>
-    </tr>
-    <tr>
-      <td>L-31</td>
-      <td>Large</td>
-      <td>₹XX,000</td>
-    </tr>
-    <tr>
-      <td>M-31</td>
-      <td>Medium</td>
-      <td>₹XX,000</td>
-    </tr>
-    <tr>
-      <td>S-31</td>
-      <td>Small</td>
-      <td><a href="https://www.onlinesbi.sbi/"target="_blank">₹XX,000</td>
-    </tr>
-    <tr>
-      <td>L-30</td>
-      <td>Large</td>
-      <td>₹XX,000</td>
-    </tr>
-    <tr>
-      <td>M-30</td>
-      <td>Medium</td>
-      <td>₹XX,000</td>
-    </tr>
-    <tr>
-      <td>S-30</td>
-      <td>Small</td>
-      <td>₹XX,000</td>
-    </tr>
-    <tr>
-      <td>SS-31</td>
-      <td>Super Small</td>
-      <td>₹XX,000</td>
-    </tr>
+  <table id="sugarTable">
+    <thead>
+      <tr>
+        <th>Sugar Type</th>
+        <th>Grade</th>
+        <th>Price (₹/Ton)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Live Data from Google Sheet will be inserted here -->
+    </tbody>
   </table>
-<div class="container">
-  <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScaR7hA9S0eCTreafgM6GC-GL-_Hw_321X-NebxkFykOluVmA/viewform?usp=header"target=_blank">Book sugar<a/>.</p>
-</div>
+
+  <script>
+    const sheetID = "1j4YA0zXczWuqXzYOZ5WAoFn4fN5dewbAGdOnuOvxIZQ"; // Replace with your actual Sheet ID
+    const sheetURL = `https://opensheet.elk.sh/${sheetID}/Sheet1`;
+
+    fetch(sheetURL)
+      .then(res => res.json())
+      .then(data => {
+        const tableBody = document.querySelector("#sugarTable tbody");
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row["Sugar Type"]}</td>
+            <td>${row["Grade"]}</td>
+            <td>₹${row["Price (₹/Ton)"]}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      });
+  </script>
+
+  <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScaR7hA9S0eCTreafgM6GC-GL-_Hw_321X-NebxkFykOluVmA/viewform?usp=header" target="_blank">Book sugar</a>.</p>
 
   <div class="contact">
     <h2>Contact Us</h2>
     <p><strong>Phone:</strong> +91-9544187846</p>
     <p><strong>Email:</strong> vishnudas.p98@gmail.com</p>
     <p><strong>Location:</strong> Govandi, Mumbai, India</p>
-    <p><strong>Payment:</strong> <a href="https://www.onlinesbi.sbi/" target="_blank">Click to Chat</a></p>
+    <p><strong>Payment:</strong> <a href="https://www.onlinesbi.sbi/" target="_blank">Click to Pay</a></p>
   </div>
 </div>
 
